@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Task Counter</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📋 Daily Tasks</h1>
+            <p class="date" id="currentDate"></p>
+        </header>
+
+        <!-- Stats -->
+        <section class="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="totalTasks">0</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="completedTasks">0</span>
+                <span class="stat-label">Completed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="pendingTasks">0</span>
+                <span class="stat-label">Pending</span>
+            </div>
+        </section>
+
+        <!-- Add Task Form -->
+        <form class="add-task" id="taskForm">
+            <input
+            type="text"
+            id="taskInput"
+            placeholder="What do you need to do?"
+            autocomplete="off"
+            required
+            />
+            <button type="submit">Add Task</button>
+        </form>
+
+        <!-- Task List -->
+        <section class="task-list">
+            <div class="list-header">
+                <span>Your Tasks</span>
+                <button class="clear-btn" id="clearAllBtn">Clear All</button>
+            </div>
+            <ul id="taskList"></ul>
+            <p class="empty-message" id="emptyMessage">🎯 No tasks yet. Add one above!</p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>✨ Stay productive, one task at a time.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
