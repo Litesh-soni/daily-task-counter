@@ -1,44 +1,12 @@
-name: Android Build
-
-on: push
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 21
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Sync Capacitor
-        run: npx cap sync android
-
-      - name: Build APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: DailyTaskCounter-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+pipeline_steps:
+  step_1: checkout_source_code
+  step_2: setup_node_22
+  step_3: setup_java_21_temurin       # Capacitor 8 requires Java 21+
+  step_4: setup_android_sdk_base
+  step_5: install_sdk_platform_36     # sdkmanager "platforms;android-36" "build-tools;36.0.0"
+  step_6: write_local_properties      # echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+  step_7: npm_ci                      # installs JS dependencies from package-lock.json
+  step_8: cap_sync_android            # copies src/* into android/app/src/main/assets/public/
+                                      # + links native plugins to Android project
+  step_9: gradle_assembleDebug        # compiles Java + web assets → app-debug.apk
+  step_10: upload_artifact            # makes APK downloadable from GitHub Actions UI
